@@ -27,13 +27,29 @@ class Nit implements Rule
     {
         $this->attribute = $attribute;
 
-        if ($this->nit == 'CF') {
+        if ($value == 'CF') {
             return true;
         }
 
-        //Validation logic
+        preg_match('/^[0-9]+(-?[0-9kK])?$/', $value, $matches);
 
-        return true;
+        if (empty($matches)) {
+            return false;
+        }
+
+        $value  = str_replace('-', '', $value);
+        $parity = strtolower(substr($value, -1, 1));
+        $index  = strlen($value);
+        $total  = 0;
+        for ($i = 0; $i < strlen($value) - 1; $i++) {
+            $total += ($value[$i] * $index);
+            $index--;
+        }
+
+        $modulus       = (11 - ($total % 11)) % 11;
+        $computedCheck = ($modulus == 10 ? 'k' : $modulus);
+
+        return $parity == $computedCheck;
     }
 
     public function message(): string
