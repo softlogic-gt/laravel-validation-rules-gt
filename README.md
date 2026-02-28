@@ -22,8 +22,8 @@ php artisan vendor:publish --provider="SoftlogicGT\ValidationRulesGT\ValidationR
 
 ## Available rules
 
--   [`DPI`](#dpi)
--   [`NIT`](#nit)
+- [`DPI`](#dpi)
+- [`NIT`](#nit)
 
 ### `DPI`
 
